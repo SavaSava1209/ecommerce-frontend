@@ -3,53 +3,31 @@
     <div class="container">
   
     <aside class="menu-sidebar d-none d-lg-block">
-      <div class="logo">      
-          <img src="assets/images/laurel-wreath.png" alt="HAPHORA" class="img-responsive">      
-      </div>
       
-      <div class="menu-sidebar-content js-scrollbar1">
-        <nav class="navbar-sidebar">
-          <ul class="list-unstyled navbar-list">
-            <li>
-              <a href="#">Books</a>
-            </li>
-            <li>
-              <a href="#">Coffee Mugs</a>
-            </li>
-            <li>
-              <a href="#">Mouse Pads</a>
-            </li>
-            <li>
-              <a href="#">Luggage Tags</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <div class="logo">      
+        <a routerLink="" routerLinkActive="active-link">
+          <img src="assets/images/laurel-wreath.png" alt="HAPHORA" class="img-responsive"> 
+        </a>
+              
+      </div>      
+      
+      <app-product-category></app-product-category>
+        
     </aside>
-    
+
       <header class="header-desktop">
         <div class="section-content section-content-p30">
           <div class="container-fluid">
             <div class="header-wrap">
-              <form class="form-header" onsubmit="return false;" method="GET">
-                <input class="au-input au-input-xl" type="text" name="search"
-                  placeholder="Search for data ..." />
-                <button class="au-btn-submit" type="submit">
-                  Search
-                </button>
-              </form>
-              <div class="cart-area d-n">
-                <a href="shopping-detail.html">
-                  <div class="total">19.22 <span> 2</span> </div> <i class="fa fa-shopping-cart"
-                    aria-hidden="true"></i>
-                </a>
-              </div>
+              <app-search></app-search>
+              <app-cart-status></app-cart-status>
             </div>
             <div class="account-wrap"></div>
           </div>
         </div>    
       </header>
-      <app-product-list></app-product-list>
+      <router-outlet></router-outlet>
+      <!-- <app-product-list></app-product-list> -->
     </div>
   </div>
     <footer>
