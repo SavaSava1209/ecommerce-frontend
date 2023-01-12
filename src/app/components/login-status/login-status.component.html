@@ -1,0 +1,13 @@
+<div class="form-header mb-2">
+    <div *ngIf="isLoggedIn && fullName" class="au-input">Welcome back {{ fullName }}</div>
+
+    <button routerLink="login" *ngIf="!isLoggedIn" class="au-btn-submit"  style="margin: 10px">Login</button>
+    
+    <button *ngIf="isLoggedIn" (click) = "logout()" class="au-btn-submit"  style="margin: 10px">Logout</button>
+
+    <button *ngIf="isLoggedIn" class="au-btn-submit" style="margin: 10px" routerLink="order-history">Orders</button>
+
+    <button *ngIf="isLoggedIn" class="au-btn-submit" style="margin: 10px" (click) = "getUserDetails()">Profile</button>
+
+    
+</div>

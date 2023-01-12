@@ -1,0 +1,41 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <h3>All Orders</h3>
+            <div *ngIf="allOrders.length > 0">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="10%">Customer Id</th>
+                        <th width="20%">Order Tracking Number</th>
+                        <th width="10%">Total Price</th>
+                        <th width="10%">Total Quantity</th>
+                        <th width="20%">Order Details</th>
+                        <th width="10%">Date</th>
+                    </tr>
+                    <tbody>
+                        <tr *ngFor="let order of allOrders">
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.orderTrackingNumber }}</td>
+                            <td>{{ order.totalPrice | currency: 'USD' }}</td>
+                            <td>{{ order.totalQuantity }}</td>
+                            <td>
+                                <div *ngFor="let orderItem of order.orderItems">                                   
+                                    <img src="{{ orderItem.imageUrl }}" width="40%"  class="d-inline mr-4">
+                                    <p  class="d-inline ml-3">{{ orderItem.quantity }}</p>                                   
+                                </div>
+                               
+                            </td>
+                            <td>{{ order.dateCreated | date: 'medium' }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="allOrders.length == 0" class="alert alert-warning col-md-12" role="alert">
+                No orders found!
+            </div>
+        </div>
+    </div>
+</div>
+
+

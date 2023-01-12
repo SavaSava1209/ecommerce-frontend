@@ -1,0 +1,54 @@
+<div class="main-content">
+    <div class="section-content section-content-p30" >
+        <div class="container-fluid">
+            <div>
+                <form (submit) = "addProduct(productForm)" #productForm="ngForm">
+                    <div class="form-group">
+                        <label for="sku">Sku</label>
+                        <input type="text" name="sku" id="sku" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="name" name="name" id="name" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="description" name="description" id="description" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitPrice">Unit Price</label>
+                        <input type="unitPrice" name="unitPrice" id="unitPrice" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">imageUrl</label>
+                        <input type="imageUrl" name="imageUrl" id="imageUrl" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitsInStock">units In Stock</label>
+                        <input type="unitsInStock" name="unitsInStock" id="unitsInStock" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-select form-select-sm mb-3" id="category" name="category" ngModel>                            
+                            <option *ngFor="let category of categories" [value]= "category.id">{{category.categoryName }}</option>                                                   
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Active</label>
+                        <select class="form-select form-select-sm mb-3" id="active" name="active" ngModel>                            
+                            <option value= "true">true</option>     
+                            <option value= "false">false</option>                                                  
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary mt-3" type="submit">Add</button>     
+                </form> 
+            </div>
+            <div *ngIf="isProductAdded">
+                <h3>Your product has been added</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+

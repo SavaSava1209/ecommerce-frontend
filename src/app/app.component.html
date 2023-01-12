@@ -6,21 +6,34 @@
       
       <div class="logo">      
         <a routerLink="" routerLinkActive="active-link">
-          <img src="assets/images/laurel-wreath.png" alt="HAPHORA" class="img-responsive"> 
+          <img src="assets/images/laurel-wreath.png" alt="HAPHORA" class="img-responsive" width="70%"> 
         </a>
               
       </div>      
-      
-      <app-product-category></app-product-category>
-        
+      <div class="menu-sidebar-content js-scrollbar1">
+        <nav class="navbar-sidebar">
+          <app-product-category></app-product-category>    
+          <hr>  
+          <button (click) = "checkIsAdmin()">Manage</button>
+          <div *ngIf="(this.isAdmin)">
+            <app-management></app-management>
+          </div>
+          
+        </nav>
+         
+      </div>
+
     </aside>
 
       <header class="header-desktop">
         <div class="section-content section-content-p30">
           <div class="container-fluid">
             <div class="header-wrap">
+
               <app-search></app-search>
+              <app-login-status></app-login-status>
               <app-cart-status></app-cart-status>
+              
             </div>
             <div class="account-wrap"></div>
           </div>

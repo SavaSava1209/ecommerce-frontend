@@ -25,7 +25,8 @@
 
                         <div class="price">{{ product.unitPrice | currency: 'USD'}}</div>
 
-                        <button (click) = "addToCart(product)" class="btn btn-danger btn-sm">Add to cart</button>
+                        <button *ngIf="!(isAdmin)" (click) = "addToCart(product)" class="btn btn-danger btn-sm">Add to cart</button>
+                        <button *ngIf="isAdmin" (click) = "deleteProduct(product)" class="btn btn-danger btn-sm">Delete</button>
                     </div>
                 </div>                               
             </div>

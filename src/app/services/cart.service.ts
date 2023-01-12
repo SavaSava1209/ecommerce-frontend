@@ -12,8 +12,16 @@ export class CartService {
   totalPrice: Subject<number> = new BehaviorSubject(0);
   totalQuantity: Subject<number> = new BehaviorSubject(0);
 
-  constructor() {
+  session: Storage = localStorage;
 
+  constructor() {
+    // get item from the storage and parse to object 
+    let data = JSON.parse(this.session.getItem("cartItems")!);
+    if (data != null) {
+      this.cartItems = data
+    }
+    
+    this.calculateCartTotal()
   }
 
 
@@ -50,7 +58,11 @@ export class CartService {
     // publish the new values ... all subscribers will receive the new data
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue)
+    this.persistCartItems()
+  }
 
+  persistCartItems() {
+    this.session.setItem("cartItems", JSON.stringify(this.cartItems))
   }
   
   remove(cartItem: CartItem) {

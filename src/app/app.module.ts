@@ -13,7 +13,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular'
+import { OktaAuth } from '@okta/okta-auth-js';
+
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { RegisterComponent } from './register/register.component';
+import { ManagementComponent } from './components/management/management.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { AdminOrderHistoryComponent } from './components/admin-order-history/admin-order-history.component'
+import { AppGuard } from './app.guard';
 
 
 @NgModule({
@@ -26,6 +37,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     CartStatusComponent,
     CartDetailsComponent,
     CheckoutComponent,
+    LoginComponent,
+    LoginStatusComponent,
+    OrderHistoryComponent,
+    RegisterComponent,
+    ManagementComponent,
+    AddProductComponent,
+    AdminOrderHistoryComponent,
 
   ],
   imports: [
@@ -34,9 +52,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
-    ProductService
+    AppGuard
+    
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,6 +12,8 @@ import { ProductCategory } from '../common/product-category';
 })
 export class ProductService {
   private API_URL = AppConfig.API_URL;
+  
+  products: Product[] 
 
   constructor(private http: HttpClient) { }
 
@@ -22,10 +25,26 @@ export class ProductService {
     ))
   }
 
-  getProductListPagination(pageNumber: number, pageSize: number) : Observable<any> {
-    const url = this.API_URL + `/products?page=${pageNumber}&size=${pageSize}`
-    return this.getProducts(url);
+  addProduct(product: Product): Observable<any>{
+    return this.http.post(this.API_URL + "/products", product, { withCredentials: true })
+      .pipe(map((res) => {
+        this.products = this.getProductList();
+        return res
+      }))
   }
+
+  deleteProduct(id: number): Observable<any>  {
+    return this.http.delete(this.API_URL + `/products/${id}`, { withCredentials: true })
+      .pipe(map(res => {
+        this.getProducts(this.API_URL)
+        return res;
+      }));
+  }
+
+  // getProductListPagination(pageNumber: number, pageSize: number) : Observable<any> {
+  //   const url = this.API_URL + `/products?page=${pageNumber}&size=${pageSize}`
+  //   return this.getProducts(url);
+  // }
 
   getProductList() : Observable<any> {
     const url = this.API_URL + "/products"

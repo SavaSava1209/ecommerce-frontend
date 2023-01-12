@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -21,18 +22,25 @@ export class ProductListComponent implements OnInit {
   pageSize: number = 10;
   totalElements: number = 10;
 
+  isAdmin: boolean = true;
+
   constructor(private productService: ProductService, 
               private route: ActivatedRoute,
-              private cartService: CartService
+              private cartService: CartService,
+              private router: Router,
+              private authService: AuthService
+              
     ) { }
 
   ngOnInit(): void {    
     this.route.paramMap.subscribe(() => {
       this.productsList();
     });
-    
+    this.authService.isAdmin.subscribe((res) => {
+      this.isAdmin = res;
+    })
   }
-
+  
   productsList() {
     this.searchMode = this.route.snapshot.paramMap.has("keyword");
 
@@ -63,10 +71,9 @@ export class ProductListComponent implements OnInit {
         this.products = res;
       })
     } else {
-      this.productService.getProductListPagination(this.pageNumber - 1, this.pageSize).subscribe((res) => {
-        this.products = res.products;
-        this.pageNumber = res.currentPage + 1;
-        this.totalElements = res.totalElements;
+      this.productService.getProductList().subscribe((res) => {        
+        this.products = res;
+       
       })
     }
   }
@@ -74,6 +81,15 @@ export class ProductListComponent implements OnInit {
   addToCart(product: Product) {
     // subscribe the cart servie add to cart 
     this.cartService.addToCart(new CartItem(product))
+  }
+
+  deleteProduct(product: Product) {
+    this.productService.deleteProduct(product.id).subscribe((res) => {
+      // console.log(res)
+      if (res.success) {
+        this.handleProductsList()
+      }
+    })
   }
 
 }

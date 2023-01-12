@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,32 +20,29 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number = 0;
   totalQuantities: number = 0;
 
+  session: Storage = sessionStorage
+
   constructor(private fb: FormBuilder, 
-              private cartService: CartService
+              private cartService: CartService,
+              private checkoutService: CheckoutService, 
+              private route: Router
     ) { }
 
   ngOnInit(): void {
+    const email = JSON.parse(this.session.getItem("userEmail")!);
     this.checkoutFormGroup = this.fb.group({
       customer: this.fb.group({
-        firstName: '',
-        lastName: '',
-        email: ''
+        firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        email: new FormControl(email, [Validators.required, Validators.email])
       }), 
       shipping: this.fb.group({
-        country: '',
-        street: '',
-        city: '',
-        state: '',
-        zipCode: null
+        country: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        street: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        city: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        state: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(2)])
       }),
-      creditCard: this.fb.group({
-        cardType:'',
-        nameOnCard: '',
-        cardNumber: '',
-        securityCode: '',
-        expirationMonth: '',
-        expirationYear: ''
-      })
     }) 
     this.reviewCartDetail();
     
@@ -51,8 +54,49 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.checkoutFormGroup.get("customer")?.value);
-    console.log(this.checkoutFormGroup.get("shipping")?.value)
+    // check if the form is valid
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+      console.log("invalid")
+      return ;
+    }
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantities;
+
+    let cartItems = this.cartService.cartItems;
+    
+    let orderItems: OrderItem[] = cartItems.map(item => new OrderItem(item));
+    
+    let purchase: Purchase = new Purchase();
+   
+    purchase.shippingAddress = this.checkoutFormGroup.value["shipping"];
+    purchase.customer = this.checkoutFormGroup.value["customer"];
+    purchase.order = order;
+    purchase.orderItems = orderItems;
+    //call checkout service 
+    this.checkoutService.placeOrder(purchase).subscribe({
+      next: 
+        res => {
+          alert(`your order has been placed.\n Tracking number is ${res.orderTrackingNumber}`)
+          this.resetCart();
+        },
+      error: 
+        err => alert(`There was an error. ${err.message}`)
+    })
+  }
+
+  resetCart() {
+    // reset cart 
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // reset form
+    this.checkoutFormGroup.reset();
+
+    // navigate to product
+    this.route.navigateByUrl('/products')
   }
 
 }
