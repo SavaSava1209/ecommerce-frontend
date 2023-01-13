@@ -26,27 +26,18 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.authService.isLoggedIn.subscribe((res) => {
-    //   this.isLoggedIn = res;
-    // })
-    // this.authService.isAdmin.subscribe((res) => {
-    //   this.isAdmin = res;
-    // })
-    this.authService.checkLogin().subscribe((res) => {
-      if (res.success) {
-        this.router.navigate(["/"])
-      }
+    this.authService.isLoggedIn.subscribe((res) => {
+      this.isLoggedIn = res;
     })
     
-
   }
 
   login(user) {
     this.authService.login(user).subscribe((res) => {
-      if (res.success) {        
-        // this.router.navigate(["/"]) 
-      }
+     console.log(res)
+
     })
+    
     
   }
 

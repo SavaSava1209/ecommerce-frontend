@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from 'src/app/common/cart-item';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -12,17 +13,24 @@ export class CartDetailsComponent implements OnInit {
   totalQuantity: number = 0;
   cartItems: CartItem[] = [];
 
-  constructor(private cartService: CartService) { }
+  isLoggedIn: boolean = false;
+
+  constructor(private cartService: CartService,
+              private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
     this.ListCartDetails();
+    this.authService.isLoggedIn.subscribe((res) => {
+      this.isLoggedIn = res;
+    })
   }
 
   ListCartDetails() {    
     this.cartItems = this.cartService.cartItems
 
     // subscribe totalprice and totalquantity
-    this.cartService.totalPrice.subscribe((price) => this.totalPrice = price)
+    this.cartService.totalPrice.subscribe((price) => this.totalPrice = Number(price.toFixed(2)))
 
     this.cartService.totalQuantity.subscribe((quantity) => this.totalQuantity = quantity)
 
@@ -31,6 +39,15 @@ export class CartDetailsComponent implements OnInit {
 
   remove(cartItem: CartItem) {
     this.cartService.remove(cartItem);
+  }
+
+  warning() {
+    
+    if (!this.isLoggedIn) {
+      alert("Please log in to place an order.")
+    }
+   
+    
   }
 
 }

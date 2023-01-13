@@ -21,7 +21,7 @@
                             <div class="items">
                                 <label>Quantity: </label>{{ cartItem.quantity }}
                             </div>
-                            <button (click) = "remove(cartItem)" class="btn btn-primary btn-sm mt-2" style="background-color: blue">Remove</button>
+                            <button (click) = "remove(cartItem)" class="au-btn-submit btn-sm mt-2" style="background-color:#8f07ff">Remove</button>
                             <p class="mt-2">Subtotal: {{ cartItem.quantity * cartItem.unitPrice | currency: 'USD' }}</p>
 
                         </td>
@@ -31,10 +31,13 @@
                         <td colspan="2"></td>
                         <td style="font-weight: bold">
                             <p>Total Quantity: {{ totalQuantity }}</p>
-                            <p>Shipping Fee: Free </p>
+                            <!-- <p>Shipping Fee: Free </p> -->
                             <p>Total Price: {{ totalPrice }} </p>      
-                            <a routerLink="/checkout" routerLinkActive="active-link" class="btn btn-primary mb-2" style="background-color: blue">
-                              Checkout
+                            <a routerLink="/checkout" routerLinkActive="active-link" 
+                                class="au-btn-submit mb-2" 
+                                style="background-color: #8f07ff"
+                                (click)="warning()">
+                              Checkout 
                             </a>                 
                                                       
                         </td>

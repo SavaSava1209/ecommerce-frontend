@@ -6,7 +6,7 @@
       
       <div class="logo">      
         <a routerLink="" routerLinkActive="active-link">
-          <img src="assets/images/laurel-wreath.png" alt="HAPHORA" class="img-responsive" width="70%"> 
+          <img src="assets/images/pink-mug.png" alt="HAPHORA" class="img-responsive" width="80%" alt="cover"> 
         </a>
               
       </div>      
@@ -14,6 +14,7 @@
         <nav class="navbar-sidebar">
           <app-product-category></app-product-category>    
           <hr>  
+          <!-- <div *ngIf="(this.isAdmin)"> -->
           <button (click) = "checkIsAdmin()">Manage</button>
           <div *ngIf="(this.isAdmin)">
             <app-management></app-management>

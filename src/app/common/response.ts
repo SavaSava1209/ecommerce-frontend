@@ -1,9 +1,10 @@
+//@ts-nocheck
 export class Response {
 
     constructor(
-        public success: boolean,
+        public success : boolean,
         public code: number,
         public message: string,
        
-) {}
+    ) {}
 }

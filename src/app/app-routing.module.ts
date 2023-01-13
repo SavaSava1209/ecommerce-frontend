@@ -13,6 +13,8 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { AdminOrderHistoryComponent } from './components/admin-order-history/admin-order-history.component';
 import { AppGuard } from './app.guard';
 import { ManagementComponent } from './components/management/management.component';
+import { CheckoutGuard } from './checkout.guard';
+import { AppComponent } from './app.component';
 
 const sendToLogin = (oktaAuth: OktaAuth, injector: Injector) => {
     const router = injector.get(Router);
@@ -28,13 +30,13 @@ const routes: Routes = [
     {   
         path: 'management',
         component: ManagementComponent,    
-        // canActivate: [AppGuard]   
+        canActivate: [AppGuard]   
     },
    
     {   
         path: 'order-history-admin',
         component: AdminOrderHistoryComponent,    
-        // canActivate: [AppGuard]   
+        canActivate: [AppGuard]   
     },
     {   
         path: 'register',
@@ -47,13 +49,12 @@ const routes: Routes = [
     {   
         path: 'checkout',
         component: CheckoutComponent,
-     
+        canActivate: [CheckoutGuard]
     }, 
     {
         path: 'login',
         component: LoginComponent
     }, 
-   
     {
         path: 'cart-details',
         component: CartDetailsComponent
@@ -87,6 +88,7 @@ const routes: Routes = [
         redirectTo: 'products',
         pathMatch: 'full'
     }, 
+    
     {
         path: '**',
         redirectTo: 'products',

@@ -3,6 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
+import { AppComponent } from '../app.component';
+import { LoginStatusComponent } from '../components/login-status/login-status.component';
+import { ManagementComponent } from '../components/management/management.component';
 import { AppConfig } from './app.config';
 
 @Injectable({
@@ -25,19 +28,18 @@ export class AuthService {
     
     return this.http.post(this.API_URL + "/login",  params, { withCredentials: true })
       .pipe( map((res) => {       
-        this.isLoggedIn.next(res.success)       
-        if (res.success) {          
+        this.isLoggedIn.next(res.success)     
+        console.log(res)  
+        if (this.isLoggedIn) {          
           this.router.navigate(["/"]);
-        }
-        
+        } 
         return res;
       }))
   }
 
   register(user): Observable<any> {
     return this.http.post(this.API_URL + "/auth/register", user)
-      .pipe(map((res) => {
-        
+      .pipe(map((res) => {        
         this.isLoggedIn.next(res.success)
         return res;
       }))

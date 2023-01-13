@@ -1,3 +1,4 @@
+//@ts-nocheck
 export class OrderHistory {
 
     constructor(public id: string,

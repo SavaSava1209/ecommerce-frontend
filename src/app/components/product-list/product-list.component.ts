@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
   pageSize: number = 10;
   totalElements: number = 10;
 
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
 
   constructor(private productService: ProductService, 
               private route: ActivatedRoute,
@@ -33,6 +33,8 @@ export class ProductListComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {    
+    // whenever the product-list page is loaded 
+    // automatically subscribe to the route state and execute productlist function
     this.route.paramMap.subscribe(() => {
       this.productsList();
     });

@@ -25,6 +25,7 @@ import { ManagementComponent } from './components/management/management.componen
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AdminOrderHistoryComponent } from './components/admin-order-history/admin-order-history.component'
 import { AppGuard } from './app.guard';
+import { CheckoutGuard } from './checkout.guard';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { AppGuard } from './app.guard';
     FormsModule
   ],
   providers: [
-    AppGuard
+    AppGuard,
+    CheckoutGuard
     
   ],
   bootstrap: [AppComponent]

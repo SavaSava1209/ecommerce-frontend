@@ -74,11 +74,12 @@ export class CheckoutComponent implements OnInit {
     purchase.customer = this.checkoutFormGroup.value["customer"];
     purchase.order = order;
     purchase.orderItems = orderItems;
+
     //call checkout service 
     this.checkoutService.placeOrder(purchase).subscribe({
       next: 
         res => {
-          alert(`your order has been placed.\n Tracking number is ${res.orderTrackingNumber}`)
+          alert(`your order has been placed.\n Order number is ${res.orderTrackingNumber}`)
           this.resetCart();
         },
       error: 
@@ -98,5 +99,7 @@ export class CheckoutComponent implements OnInit {
     // navigate to product
     this.route.navigateByUrl('/products')
   }
+
+ 
 
 }

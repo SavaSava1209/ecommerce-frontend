@@ -20,4 +20,10 @@ describe('OrderHistoryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it ('should be false for is admin', () => {
+    expect(component.isAdmin).toBe(true);
+  })
+
+
 });

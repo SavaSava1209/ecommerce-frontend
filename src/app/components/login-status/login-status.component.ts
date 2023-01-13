@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginStatusComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean ;
   fullName: string = '';
 
   session: Storage = sessionStorage;
@@ -33,9 +33,7 @@ export class LoginStatusComponent implements OnInit {
   logout() {
     this.authService.logout().subscribe((res) => {
       if (res.success) {
-        this.isLoggedIn = false;
-        this.fullName = ""
-        this.session.removeItem("userEmail")
+        this.resetUser()
         this.router.navigate(["/"])
       }
      
@@ -46,11 +44,19 @@ export class LoginStatusComponent implements OnInit {
   getUserDetails() {
     this.authService.getUserDetail().subscribe((res) => {
      // this.fullName = res.userName;
-    //  console.log("login status", res)
+     console.log("login status", res)
       const email = JSON.stringify(res.email)
       this.fullName = res.firstName
       this.session.setItem("userEmail", email)
     })
+  }
+
+  resetUser() {
+    // this.authService.isLoggedIn.next(false);
+    // this.authService.isAdmin.next(false)
+    this.fullName = "";
+    this.session.removeItem("userEmail")
+        
   }
   
 }
