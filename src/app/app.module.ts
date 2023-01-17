@@ -16,11 +16,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
-import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular'
-import { OktaAuth } from '@okta/okta-auth-js';
 
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { ManagementComponent } from './components/management/management.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AdminOrderHistoryComponent } from './components/admin-order-history/admin-order-history.component'

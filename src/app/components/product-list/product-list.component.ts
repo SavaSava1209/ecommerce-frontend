@@ -42,6 +42,8 @@ export class ProductListComponent implements OnInit {
       this.isAdmin = res;
     })
   }
+
+  
   
   productsList() {
     this.searchMode = this.route.snapshot.paramMap.has("keyword");

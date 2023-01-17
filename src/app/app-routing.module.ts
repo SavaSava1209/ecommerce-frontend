@@ -8,7 +8,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { OktaAuthGuard,  OktaCallbackComponent } from '@okta/okta-angular'
 import { OktaAuth } from '@okta/okta-auth-js';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AdminOrderHistoryComponent } from './components/admin-order-history/admin-order-history.component';
 import { AppGuard } from './app.guard';

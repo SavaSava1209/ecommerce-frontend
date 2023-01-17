@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this.authService.checkLogin().subscribe(res => {
-      console.log("app"+ res)
+      console.log("app" + res)
     })
     this.authService.isAdmin.subscribe((res) => {
       this.isAdmin = res;

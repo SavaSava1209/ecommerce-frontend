@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,19 +9,17 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
   isLoggedIn: boolean = false;
   errorMessage: string = ""
-  session: Storage = sessionStorage
+
 
   constructor(private authService: AuthService,
               private router: Router
-
   ) { }
 
   ngOnInit(): void {
-    // this.authService.isLoggedIn.subscribe((res) => {
-    //   this.isLoggedIn = res;
-    // })
+
   }
 
   register(user) {    
@@ -33,4 +31,5 @@ export class RegisterComponent implements OnInit {
       }
     })
   }
+
 }
